@@ -30,6 +30,10 @@ The data used in this project is sourced from two key datasets:
 
 **Our World in Data COVID-19 Dataset:** This comprehensive dataset includes information on COVID-19 cases, deaths, testing, and other related metrics across different countries and regions.
 
+**Data Link**
+
+https://ourworldindata.org/covid-deaths
+
 ## Methodology
 
 **SQL Analysis:** Several SQL queries were performed on the WHO COVID-19 dataset to analyze total cases, deaths, death percentages, infection rates, and vaccination coverage. The results of these queries were saved as Excel files for further analysis.
