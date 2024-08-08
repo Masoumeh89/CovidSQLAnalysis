@@ -1,5 +1,6 @@
 # CovidSQLAnalysis
-Analysis of COVID-19 Deaths and Vaccination Rates using SQL
+
+Analysis of COVID-19 Deaths and Vaccination Rates using SQL and Tableau
 
 
 
@@ -7,20 +8,34 @@ Analysis of COVID-19 Deaths and Vaccination Rates using SQL
 
 1. [Introduction](#introduction)
 2. [Data Source](#data-source)
-3. [Data Analysis](#data-analysis)
-4. [Discussion](#discussion)
+3. [Methodology](#methodology)
+4. [Visualizations](#visualizations)
+5. [Dashboard](#dashboard)
+6. [Discussion](#discussion)
+7. [Conclusion](#Conclusion)
 
 
 
 
 
 ## Introduction
-The COVID-19 pandemic has had a profound impact on global health and economies. Understanding the patterns of infections, deaths, and vaccination rates is crucial for public health planning and response. This project analyzes the COVID-19 data from the World Health Organization (WHO) using SQL to extract meaningful insights. The analysis includes examining the number of confirmed deaths, infection rates, and vaccination coverage across different countries and continents.
+
+The COVID-19 pandemic has had a profound impact on global health, economies, and daily life. Understanding the spread and impact of the virus through data analysis and visualization helps in gaining insights into the pandemic's trends and patterns. This project involves analyzing the COVID-19 data from the World Health Organization (WHO) and Our World in Data using SQL to extract meaningful insights, followed by the creation of visualizations in Tableau. The project focuses on key metrics such as total cases, deaths, death rates, infection percentages, and vaccination coverage across different countries and continents.
 
 ## Data Source
-The data used in this project is sourced from the WHO COVID-19 Dashboard. The dataset contains information on the number of confirmed COVID-19 cases, deaths, and vaccination rates. The analysis is performed using SQL queries to extract, transform, and analyze the data.
 
-## Data Analysis
+The data used in this project is sourced from two key datasets:
+
+**World Health Organization (WHO) COVID-19 Dashboard:** This dataset contains information on confirmed COVID-19 cases, deaths, and vaccination rates globally.
+
+**Our World in Data COVID-19 Dataset:** This comprehensive dataset includes information on COVID-19 cases, deaths, testing, and other related metrics across different countries and regions.
+
+## Methodology
+
+**SQL Analysis:** Several SQL queries were performed on the WHO COVID-19 dataset to analyze total cases, deaths, death percentages, infection rates, and vaccination coverage. The results of these queries were saved as Excel files for further analysis.
+
+**Tableau Visualizations:** The Excel files generated from SQL queries were imported into Tableau to create visualizations, focusing on global and regional impacts of the pandemic.
+
 
 **1. Overview of COVID-19 Data**
 
@@ -234,14 +249,83 @@ WHERE
 
 ```
 
+## Visualizations
+
+
+**Global Numbers Table:** This table summarizes global statistics, including total cases, total deaths, and the death percentage. It provides a concise overview of the pandemic's impact on a global scale.
+
+**Bar Chart of Total Death Counts per Continent:** A bar chart displays the total death counts for each continent, highlighting the regions most affected by the pandemic. This visualization helps to understand the geographic distribution of COVID-19 deaths.
+
+```sql
+
+
+Select location, SUM(cast(new_deaths as int)) as TotalDeathCount
+From CovidSQLProject..CovidDeath
+--Where location like '%states%'
+Where continent is null 
+and location not in ('World', 'European Union', 'International')
+Group by location
+order by TotalDeathCount desc
+
+```
+
+
+**Geographical Chart of Percent of Population Infected per Country:** This map-based visualization shows the percentage of the population infected with COVID-19 in each country. It uses color coding to represent infection rates, making it easy to identify hotspots and compare infection rates across countries.
+
+```sql
+
+Select Location, Population, MAX(total_cases) as HighestInfectionCount,  Max((total_cases/population))*100 as PercentPopulationInfected
+From CovidSQLProject..CovidDeath
+--Where location like '%states%'
+Group by Location, Population
+order by PercentPopulationInfected desc
+
+```
+
+**Line Chart of Percent of Population Infected with Forecasting Analysis:** This line chart compares the infection rates over time for selected countries (US, France, Italy, UK, China, and India). It includes forecasting analysis to predict future trends, providing valuable insights into the pandemic's trajectory.
+
+
+```sql
+
+Select Location, Population,date, MAX(total_cases) as HighestInfectionCount,  Max((total_cases/population))*100 as PercentPopulationInfected
+From CovidSQLProject..CovidDeath
+--Where location like '%states%'
+Group by Location, Population, date
+order by PercentPopulationInfected desc
+```
+
+## Dashboard
+
+A comprehensive dashboard was created in Tableau, integrating all four visualizations. The dashboard allows for interactive exploration of the data, enabling users to filter, zoom, and drill down into specific metrics. This holistic view of the data provides a deeper understanding of the global and regional impacts of COVID-19.
+
+### Dashboard Components:
+
+**Global Numbers Table:** Summarizes global statistics.
+
+**Bar Chart of Total Death Counts per Continent:** Visualizes the death toll across continents.
+
+**Geographical Chart of Percent of Population Infected per Country:** Maps infection rates globally.
+
+**Line Chart of Percent of Population Infected with Forecasting Analysis:** Tracks and forecasts infection rates.
+
+
 ## Discussion
 
-The analysis provided valuable insights into the impact of COVID-19 across different regions. Key findings include:
+The analysis provided valuable insights into the impact of COVID-19 across different regions:
 
-The United States had significant variations in death percentages, highlighting the importance of healthcare infrastructure and response.
-Infection rates relative to population showed which countries were most affected, emphasizing the need for targeted interventions.
-Vaccination data analysis revealed disparities in vaccination coverage, underlining the importance of equitable vaccine distribution.
-These insights can aid policymakers in making informed decisions to combat the pandemic effectively and ensure better preparedness for future health crises.
+**Global Severity:** The Global Numbers Table highlights the severity of the pandemic, with millions of cases and a significant number of deaths worldwide.
+
+**Regional Differences:** The Bar Chart of Total Death Counts per Continent reveals significant regional disparities, with Europe and the Americas experiencing higher death tolls.
+
+**Hotspots Identification:** The Geographical Chart of Percent of Population Infected per Country shows varying infection rates, helping to identify and compare hotspots across countries.
+
+**Predictive Analysis:** The Line Chart with Forecasting Analysis provides predictive insights, aiding policymakers and health officials in planning and response strategies.
+
+
+## Conclusion
+
+This project demonstrates the power of combining SQL for data extraction and Tableau for data visualization to analyze and communicate complex data related to the COVID-19 pandemic. The integration of SQL queries with Tableau visualizations provides a comprehensive approach to understanding the spread and impact of the virus. The insights gained from this project can help inform public health decisions and response strategies, contributing to better preparedness for current and future health crises.
+
 
 
 
