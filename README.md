@@ -269,6 +269,9 @@ order by TotalDeathCount desc
 
 ```
 
+<img width="421" alt="image" src="https://github.com/user-attachments/assets/f8b81717-c1ec-405b-8c7c-cf040a67bc1d">
+
+
 
 **Geographical Chart of Percent of Population Infected per Country:** This map-based visualization shows the percentage of the population infected with COVID-19 in each country. It uses color coding to represent infection rates, making it easy to identify hotspots and compare infection rates across countries.
 
@@ -281,6 +284,8 @@ Group by Location, Population
 order by PercentPopulationInfected desc
 
 ```
+<img width="539" alt="image" src="https://github.com/user-attachments/assets/6deb83a2-5cdb-4df4-9837-4718779cbe98">
+
 
 **Line Chart of Percent of Population Infected with Forecasting Analysis:** This line chart compares the infection rates over time for selected countries (US, France, Italy, UK, China, and India). It includes forecasting analysis to predict future trends, providing valuable insights into the pandemic's trajectory.
 
@@ -293,6 +298,9 @@ From CovidSQLProject..CovidDeath
 Group by Location, Population, date
 order by PercentPopulationInfected desc
 ```
+
+<img width="533" alt="image" src="https://github.com/user-attachments/assets/5e9d97ab-98c8-4806-a199-cf80e01a5cec">
+
 
 ## Dashboard
 
